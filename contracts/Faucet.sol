@@ -4,9 +4,10 @@ import '@openzeppelin/contracts/security/Pausable.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/access/AccessControl.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
+import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 import './helpers/TransferHelpers.sol';
 
-contract Faucet is Ownable, Pausable, AccessControl {
+contract Faucet is Ownable, Pausable, AccessControl, ReentrancyGuard {
   using SafeMath for uint256;
 
   bytes32 public constant dispenserRole = keccak256(abi.encodePacked('DISPENSER_ROLE'));
@@ -19,10 +20,10 @@ contract Faucet is Ownable, Pausable, AccessControl {
   }
 
   function dispense(
-    address to,
     address token,
+    address to,
     uint256 amount
-  ) external whenNotPaused {
+  ) external whenNotPaused nonReentrant {
     require(hasRole(dispenserRole, _msgSender()), 'only_dispenser');
     require(
       block.timestamp > lastDispenseTime[to] && block.timestamp.sub(lastDispenseTime[to]) >= 24 hours,
@@ -54,4 +55,6 @@ contract Faucet is Ownable, Pausable, AccessControl {
   function unpause() external onlyOwner {
     _unpause();
   }
+
+  receive() external payable {}
 }
