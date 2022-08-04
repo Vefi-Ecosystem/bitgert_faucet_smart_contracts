@@ -11,7 +11,7 @@ module.exports = {
   solidity: '0.8.13',
   networks: {
     bitgert: {
-      url: 'https://testnet-rpc.brisescan.com',
+      url: 'https://testnet.chainrpc.com/',
       accounts: [process.env.PRIVATE_KEY],
       chainId: 64668
     }
