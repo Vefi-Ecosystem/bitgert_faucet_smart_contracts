@@ -15,5 +15,20 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       chainId: 64668
     }
+  },
+  etherscan: {
+    apiKey: {
+      bitgert: ''
+    },
+    customChains: [
+      {
+        network: 'bitgert',
+        chainId: 64668,
+        urls: {
+          apiURL: 'https://testnet-explorer.brisescan.com/api',
+          browserURL: 'https://testnet-explorer.brisescan.com'
+        }
+      }
+    ]
   }
 };

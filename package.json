@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx hardhat test",
     "format": "prettier --write **/**/*.{js,json,sol}",
-    "deploy": "npx hardhat run scripts/deploy.js --network bitgert"
+    "deploy": "npx hardhat run scripts/deploy.js --network bitgert",
+    "compile": "npx hardhat compile"
   },
   "repository": {
     "type": "git",
